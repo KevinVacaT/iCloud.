@@ -1,0 +1,24 @@
+// Ejemplo de cómo obtener la dirección IP en JavaScript
+function obtenerDireccionIP() {
+    fetch('https://api64.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const direccionIP = data.ip;
+            enviarIPAlServidor(direccionIP);
+        })
+        .catch(error => console.error('Error al obtener la dirección IP', error));
+}
+
+// Ejemplo de cómo enviar la dirección IP al servidor
+function enviarIPAlServidor(ip) {
+    fetch('https://tu-servidor-en-la-nube.com/endpoint', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ip: ip }),
+    })
+        .then(response => response.json())
+        .then(data => console.log('Dirección IP enviada al servidor:', data))
+        .catch(error => console.error('Error al enviar la dirección IP al servidor', error));
+}
